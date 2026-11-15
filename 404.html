@@ -4,12 +4,12 @@
     <meta charset="UTF-8" />
     <title>Locus</title>
     <script>
-      // GitHub Pages não conhece rotas SPA (ex.: /Lume/fantasia/produto/12).
+      // GitHub Pages não conhece rotas SPA (ex.: /Locus/fantasia/produto/12).
       // Salva o caminho pretendido e devolve o visitante para o index.html.
       try {
         sessionStorage.setItem('locus_redirect', location.pathname + location.search + location.hash)
       } catch (e) {}
-      location.replace('/Lume/')
+      location.replace('/Locus/')
     </script>
   </head>
   <body></body>
