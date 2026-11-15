@@ -21,13 +21,7 @@ function SelecaoTamanho({ tamanho, onSelecionar }) {
               onClick={() => onSelecionar(t)}
               aria-pressed={ativo}
               aria-label={`Tamanho ${t}`}
-              className="w-11 h-11 rounded-full text-sm font-semibold cursor-pointer transition-all duration-200 hover:scale-105"
-              style={{
-                background: ativo ? 'var(--cor-esverdiado-bts)' : 'var(--cor-fundo-cartao)',
-                color: ativo ? '#fff' : 'var(--cor-texto)',
-                border: `1px solid ${ativo ? 'var(--cor-esverdiado)' : 'var(--cor-borda)'}`,
-                boxShadow: ativo ? '0 6px 14px rgba(0,0,0,0.3)' : 'none',
-              }}
+              className={`w-11 h-11 rounded-full text-sm font-semibold cursor-pointer transition-all duration-200 hover:scale-105 tamanho-botao${ativo ? ' tamanho-ativo' : ''}`}
             >
               {t}
             </button>

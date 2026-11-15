@@ -45,8 +45,8 @@
 }
 
 /* Tema claro "Locus por Leitura" — mesmo efeito do data-theme='reading'
-   do modelo: redefinindo as variáveis para papel/verde-escuro e o site
-   inteiro (fundo, cards, bordas, texto) muda com transição suave. */
+do modelo: redefinindo as variáveis para papel/verde-escuro e o site
+inteiro (fundo, cards, bordas, texto) muda com transição suave. */
 [data-theme='reading'] {
   --cor-fundo: #f2ede3;
   --cor-fundo-suave: #fbf7f0;
@@ -57,8 +57,8 @@
   --cor-primaria: #2e3a2e;
   --cor-primaria-suave: #46543f;
   /* Verdes do modo claro: cada um equivalente ao seu par no modo escuro.
-     -bts (fundos/botões) fica claro #dce2d1; o de destaque/texto é mais
-     escuro para ter contraste sobre o papel. */
+  -bts (fundos/botões) fica claro #dce2d1; o de destaque/texto é mais
+  escuro para ter contraste sobre o papel. */
   --cor-verde-modo-claro-bts: #dce2d1;
   --cor-ver-modo-claro: #5f7048;
   --cor-esverdiado: var(--cor-ver-modo-claro);
@@ -149,6 +149,7 @@ footer {
 [data-theme='reading'] .header-icon-heart path {
   stroke: #000;
 }
+
 
 ::selection {
   background: var(--cor-primaria);
@@ -289,6 +290,7 @@ footer {
   padding: 0 13px;
   color: var(--cor-texto-suave);
   margin-left: auto;
+  margin-right: 10px;
 }
 
 .header-search input {
@@ -350,6 +352,12 @@ footer {
     grid-template-columns: 1fr 1fr;
     padding: 45px 60px;
   }
+}
+
+/* Modo claro: o card "Um respiro" vira fundo preto — no modo escuro ele
+   continua com o papel (#f2ede3) de sempre. */
+[data-theme='reading'] .reading-invitation {
+  background: #000;
 }
 
 .reading-mini-brand {
@@ -478,4 +486,49 @@ footer {
    usam texto escuro — branco sumiria no verde claro. Escuro: inalterado. */
 [data-theme='reading'] .esverdiado-claro {
   color: var(--cor-texto);
+}
+
+/* Botões de tamanho do produto (SelecaoTamanho). */
+.tamanho-botao {
+  background: var(--cor-fundo-cartao);
+  color: var(--cor-texto);
+  border: 1px solid var(--cor-borda);
+  box-shadow: none;
+}
+
+.tamanho-botao.tamanho-ativo {
+  background: var(--cor-esverdiado-bts);
+  color: #fff;
+  border-color: var(--cor-esverdiado);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+}
+
+/* Modo claro: tamanho selecionado em verde mais escuro (#5f7048) —
+   mais contraste que o verde-claro e a borda acompanha. */
+[data-theme='reading'] .tamanho-botao.tamanho-ativo {
+  background: #5f7048;
+  border-color: #46543f;
+}
+
+/* Estrelas da avaliação. */
+.estrela-ativa {
+  color: var(--cor-esverdiado-bts);
+}
+
+.estrela-inativa {
+  color: rgba(140, 140, 140, 0.45);
+}
+
+/* Modo claro: estrela selecionada em verde mais escuro. */
+[data-theme='reading'] .estrela-ativa {
+  color: #5f7048;
+}
+
+/* Filtros da vitrine no modo claro: pills claras em vez de quase-preto;
+   a selecionada segue o mesmo estilo do "Comprar agora". */
+[data-theme='reading'] .filtro-botoes {
+  --cor-filtro-primaria: var(--cor-esverdiado-bts);
+  --cor-filtro-suave: var(--cor-fundo-cartao);
+  --cor-filtro-texto: var(--cor-texto);
+  --cor-filtro-borda: var(--cor-borda);
 }

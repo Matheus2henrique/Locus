@@ -28,12 +28,11 @@ function Estrelas({ nota, onChange, tamanho = 20 }) {
           onClick={() => onChange(n)}
           onMouseEnter={() => onChange && setPasse(n)}
           aria-label={`${n} ${n === 1 ? 'estrela' : 'estrelas'}`}
-          className="border-none bg-transparent leading-none transition-transform duration-150"
+          className={`border-none bg-transparent leading-none transition-transform duration-150 ${n <= ativa ? 'estrela-ativa' : 'estrela-inativa'}`}
           style={{
             padding: 0,
             fontSize: `${tamanho}px`,
             cursor: onChange ? 'pointer' : 'default',
-            color: n <= ativa ? 'var(--cor-esverdiado-bts)' : 'rgba(140,140,140,0.45)',
             textShadow: n <= ativa ? '0 1px 2px rgba(0,0,0,0.35)' : 'none',
             transform: onChange && passe === n ? 'scale(1.15)' : 'none',
           }}
@@ -162,7 +161,7 @@ function Avaliacoes({ produto, dados = { media: 0, total: 0, avaliacoes: [] }, o
           <button
             type="submit"
             disabled={enviando}
-            className="rounded-full px-5 py-2 text-sm font-semibold text-white border-none transition-transform duration-300 hover:scale-105 disabled:opacity-60 disabled:hover:scale-100"
+            className="rounded-full px-5 py-2 text-sm font-semibold text-white border-none transition-transform duration-300 hover:scale-105 disabled:opacity-60 disabled:hover:scale-100 esverdiado-claro"
             style={{ background: 'var(--cor-esverdiado-bts)', cursor: enviando ? 'wait' : 'pointer' }}
           >
             {enviando ? 'Enviando…' : 'Enviar avaliação'}

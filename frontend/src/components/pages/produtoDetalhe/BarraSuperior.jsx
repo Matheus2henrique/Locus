@@ -14,8 +14,8 @@ function BarraSuperior({ genero, onVoltar, admin, produto, onEditarProduto }) {
       {admin && onEditarProduto && (
         <button
           onClick={() => onEditarProduto(produto)}
-          className="flex items-center gap-2 px-4 py-2 rounded-full border-none cursor-pointer text-sm font-medium transition-all duration-300 hover:scale-105"
-          style={{ background: 'var(--cor-esverdiado-bts)', color: '#fff' }}
+          className="flex items-center gap-2 px-4 py-2 rounded-full border-none cursor-pointer text-sm font-medium transition-all duration-300 hover:scale-105 text-white esverdiado-claro"
+          style={{ background: 'var(--cor-esverdiado-bts)' }}
         >
           <svg viewBox="0 0 24 24" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />

@@ -10,7 +10,7 @@ function ImagemProduto({ produto }) {
         >
           <img src={produto.imagem} alt={produto.nome} className="w-full h-[320px] md:h-[440px] object-cover" />
           <span
-            className="absolute bottom-4 right-4 text-white text-xs px-3 py-1.5 rounded-full"
+            className="absolute bottom-4 right-4 text-white text-xs px-3 py-1.5 rounded-full esverdiado-claro"
             style={{ background: 'var(--cor-esverdiado-bts)' }}
           >
             {produto.tipo === 'colecionavel' ? 'Colecionável' : 'Decoração avulsa'}

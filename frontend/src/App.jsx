@@ -21,6 +21,12 @@ import { carregarCarrinho, salvarCarrinho, chaveItem, normalizarOpcoes } from '.
 
 const BASE = '/Locus'
 
+// O tema do modo claro mora na URL: /Locus/leitura é leitura, qualquer
+// outra rota (inclusive /Locus/mundos) é o modo escuro.
+function temaLeituraDaURL() {
+  return window.location.pathname.replace(BASE, '').split('/').filter(Boolean)[0] === 'leitura'
+}
+
 // O mapa estático (data/subcategorias.js) vira a mesma forma que a API
 // devolve — lista com `genero` — para menus e admin usarem um formato só.
 function listaDeSubcategoriasEstatica() {
@@ -30,6 +36,7 @@ function listaDeSubcategoriasEstatica() {
 }
 
 function rotaParaURL({ generoId, pagina, produtoSelecionado, mostrarPerfil, perfilCriandoConta, mostrarFavoritos, mostrarAdmin, pedidoId, subFiltro }, temaLeitura = false) {
+
   if (mostrarAdmin) return `${BASE}/admin`
   // Login e cadastro têm URLs próprias (voltar/avançar do navegador funciona).
   if (mostrarPerfil) return perfilCriandoConta ? `${BASE}/login/criar-conta` : `${BASE}/login`
@@ -49,6 +56,7 @@ function rotaParaURL({ generoId, pagina, produtoSelecionado, mostrarPerfil, perf
   // Home: a URL carrega o modo de exibição — /Locus/mundos (escuro)
   // ou /Locus/leitura (claro).
   return temaLeitura ? `${BASE}/leitura` : `${BASE}/mundos`
+
 }
 
 function URLparaEstado(pathname, produtosLista) {
@@ -115,8 +123,9 @@ function App() {
   const [mostrarFormProduto, setMostrarFormProduto] = useState(false)
   const [sucesso, setSucesso] = useState('')
   // Tema claro "Locus por Leitura": ativado pelo botão da home, vale para
-  // a aplicação inteira sem mudar de página.
-  const [temaLeitura, setTemaLeitura] = useState(false)
+  // a aplicação inteira sem mudar de página. A URL é a fonte da verdade
+  // (/Locus/leitura = claro), então o estado nasce já lido dela.
+  const [temaLeitura, setTemaLeitura] = useState(temaLeituraDaURL)
 
   const genero = nichos.find((g) => g.id === generoId)
 
@@ -168,6 +177,7 @@ function App() {
     setSubFiltro(proximo.subFiltro ?? null)
     window.scrollTo({ top: 0, behavior: 'smooth' })
     window.history.pushState(null, '', rotaParaURL(proximo, temaLeitura))
+
   }
 
   // URL canônica da home: `/Locus` (ou a raiz no dev) vira `/Locus/mundos`.
@@ -192,6 +202,7 @@ function App() {
       setSubFiltro(estado.subFiltro ?? null)
       // /Locus/leitura e /Locus/mundos também escolhem o modo (voltar/avançar).
       if (estado.temaLeitura !== undefined) setTemaLeitura(estado.temaLeitura)
+
     }
     sincronizar()
     window.addEventListener('popstate', sincronizar)
@@ -230,6 +241,7 @@ function App() {
     if (emHome) {
       window.history.replaceState(null, '', rotaParaURL({ pagina: 'entrada' }, proximo))
     }
+
   }
 
   function handleSelecionarProduto(produto) {
