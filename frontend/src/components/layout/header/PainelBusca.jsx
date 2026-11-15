@@ -19,14 +19,14 @@ function PainelBusca({ containerRef, busca, onMudarBusca, onEnter, onEsc, temRes
           <input
             autoFocus
             type="text"
-            placeholder="Pesquise universos e produtos (ex.: Coleção Dinossauro, suporte de livros)"
+            placeholder="Pesquise universos e produtos…"
             value={busca}
             onChange={(e) => onMudarBusca(e.target.value)}
             onKeyDown={(e) => {
               if (e.key === 'Enter') onEnter()
               if (e.key === 'Escape') onEsc()
             }}
-            className="flex-1 min-w-0 bg-transparent border-none outline-none py-2 text-sm"
+            className="flex-1 min-w-0 bg-transparent border-none outline-none py-2.5 text-[16px]"
             style={{ color: 'var(--cor-texto)' }}
           />
         </div>

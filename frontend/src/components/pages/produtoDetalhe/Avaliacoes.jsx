@@ -210,7 +210,7 @@ function Avaliacoes({ produto, dados = { media: 0, total: 0, avaliacoes: [] }, o
             <div className="min-w-0 flex-1">
               <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1">
                 <span className="text-sm font-semibold" style={{ color: 'var(--cor-texto)' }}>
-                  {avaliacao.nome || 'Cliente Lume'}
+                  {avaliacao.nome || 'Cliente Locus'}
                 </span>
                 <span className="text-xs" style={{ color: 'var(--cor-texto-suave)' }}>
                   {formatarData(avaliacao.criado_em)}

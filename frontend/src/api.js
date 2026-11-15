@@ -1,6 +1,6 @@
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000/api'
-const CHAVE_TOKEN = 'lume_token'
-const CHAVE_USUARIO = 'lume_usuario'
+const CHAVE_TOKEN = 'locus_token'
+const CHAVE_USUARIO = 'locus_usuario'
 
 export function salvarSessao({ token, usuario }) {
   localStorage.setItem(CHAVE_TOKEN, token)

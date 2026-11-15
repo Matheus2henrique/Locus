@@ -17,14 +17,14 @@ function SecaoNewsletter() {
         <div className="absolute -bottom-24 -left-24 w-72 h-72 rounded-full opacity-5" style={{ background: 'var(--cor-esverdiado-bts)' }} />
         <div className="relative z-10 grid lg:grid-cols-2 gap-12 items-center">
           <div>
-            <span className="text-xs font-bold uppercase tracking-widest" style={{ color: 'var(--cor-esverdiado-bts)' }}>
+            <span className="inline-block px-4 py-1.5 rounded-full text-sm font-medium" style={{ background: 'var(--cor-esverdiado-bts)', color: 'var(--cor-texto)' }}>
               Comunidade de Leitores
             </span>
             <h2 className="font-[Georgia,serif] text-3xl md:text-4xl mt-2 mb-4" style={{ color: 'var(--cor-texto)' }}>
               Receba novidades e ofertas exclusivas
             </h2>
             <p className="text-sm md:text-base mb-8 leading-relaxed" style={{ color: 'var(--cor-texto-suave)' }}>
-              Cadastre-se para ser o primeiro a saber quando novos universos literários forem lançados na Lume 3D.
+              Cadastre-se para ser o primeiro a saber quando novos universos literários forem lançados na Locus 3D.
             </p>
             {newsletterEnviado ? (
               <div className="flex items-center gap-2 text-sm font-medium" style={{ color: 'var(--cor-esverdiado-bts)' }}>
@@ -76,12 +76,12 @@ function SecaoNewsletter() {
                 required
                 className="mt-0.5"
               />
-              Aceito receber novidades e ofertas da Lume por e-mail. Posso cancelar a inscrição a
+              Aceito receber novidades e ofertas da Locus por e-mail. Posso cancelar a inscrição a
               qualquer momento.
             </label>
           </div>
           <div className="hidden lg:flex justify-center">
-            <img src={`${import.meta.env.BASE_URL}./public/IDENTIDADE VISUAL LOCUS/locu-portal.png`} alt="Lume 3D" className="w-80 h-auto rounded-lg shadow-lg" />
+            <img src={`${import.meta.env.BASE_URL}IDENTIDADE VISUAL LOCUS/locu-portal.png`} alt="Locus 3D" className="w-80 h-auto " />
           </div>
         </div>
       </div>

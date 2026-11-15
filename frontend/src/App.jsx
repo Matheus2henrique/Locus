@@ -29,7 +29,7 @@ function listaDeSubcategoriasEstatica() {
   )
 }
 
-function rotaParaURL({ generoId, pagina, produtoSelecionado, mostrarPerfil, perfilCriandoConta, mostrarFavoritos, mostrarAdmin, pedidoId, subFiltro }) {
+function rotaParaURL({ generoId, pagina, produtoSelecionado, mostrarPerfil, perfilCriandoConta, mostrarFavoritos, mostrarAdmin, pedidoId, subFiltro }, temaLeitura = false) {
   if (mostrarAdmin) return `${BASE}/admin`
   // Login e cadastro têm URLs próprias (voltar/avançar do navegador funciona).
   if (mostrarPerfil) return perfilCriandoConta ? `${BASE}/login/criar-conta` : `${BASE}/login`
@@ -46,7 +46,9 @@ function rotaParaURL({ generoId, pagina, produtoSelecionado, mostrarPerfil, perf
     const query = subFiltro ? `?sub=${encodeURIComponent(subFiltro)}` : ''
     return `${BASE}/${generoId}${query}`
   }
-  return `${BASE}`
+  // Home: a URL carrega o modo de exibição — /Locus/mundos (escuro)
+  // ou /Locus/leitura (claro).
+  return temaLeitura ? `${BASE}/leitura` : `${BASE}/mundos`
 }
 
 function URLparaEstado(pathname, produtosLista) {
@@ -74,9 +76,12 @@ function URLparaEstado(pathname, produtosLista) {
     const produto = produtosLista.find((p) => p.id === Number(partes[2]) && p.genero === generoId)
     if (produto) return { pagina: 'detalhe', generoId, produtoSelecionado: produto }
   }
+  // Home com o modo de exibição embutido na URL.
+  if (partes[0] === 'leitura') return { pagina: 'entrada', generoId: null, temaLeitura: true }
+  if (partes[0] === 'mundos') return { pagina: 'entrada', generoId: null, temaLeitura: false }
   if (partes[0]) return { pagina: 'genero', generoId: partes[0], subFiltro }
 
-  return { pagina: 'entrada', generoId: null }
+  return { pagina: 'entrada', generoId: null, temaLeitura: false }
 }
 
 function App() {
@@ -97,7 +102,7 @@ function App() {
   const [pagina, setPagina] = useState('entrada')
   const [produtoSelecionado, setProdutoSelecionado] = useState(null)
   const [mostrarPerfil, setMostrarPerfil] = useState(false)
-  // Dentro da tela de perfil, o cadastro tem URL própria (/Lume/login/criar-conta).
+  // Dentro da tela de perfil, o cadastro tem URL própria (/Locus/login/criar-conta).
   const [perfilCriandoConta, setPerfilCriandoConta] = useState(false)
   const [mostrarFavoritos, setMostrarFavoritos] = useState(false)
   const [mostrarAdmin, setMostrarAdmin] = useState(false)
@@ -162,8 +167,16 @@ function App() {
     setPedidoId(proximo.pedidoId ?? null)
     setSubFiltro(proximo.subFiltro ?? null)
     window.scrollTo({ top: 0, behavior: 'smooth' })
-    window.history.pushState(null, '', rotaParaURL(proximo))
+    window.history.pushState(null, '', rotaParaURL(proximo, temaLeitura))
   }
+
+  // URL canônica da home: `/Locus` (ou a raiz no dev) vira `/Locus/mundos`.
+  useEffect(() => {
+    const caminho = window.location.pathname
+    if (caminho === '/' || caminho === BASE || caminho === `${BASE}/`) {
+      window.history.replaceState(null, '', `${BASE}/mundos`)
+    }
+  }, [])
 
   useEffect(() => {
     function sincronizar() {
@@ -177,6 +190,8 @@ function App() {
       setMostrarAdmin(Boolean(estado.mostrarAdmin))
       setPedidoId(estado.pedidoId ?? null)
       setSubFiltro(estado.subFiltro ?? null)
+      // /Locus/leitura e /Locus/mundos também escolhem o modo (voltar/avançar).
+      if (estado.temaLeitura !== undefined) setTemaLeitura(estado.temaLeitura)
     }
     sincronizar()
     window.addEventListener('popstate', sincronizar)
@@ -206,6 +221,17 @@ function App() {
     navegar({ generoId: null, pagina: 'entrada' })
   }
 
+  // Troca o modo da home e espelha na URL: /Locus/mundos ↔ /Locus/leitura.
+  // replaceState: alternar modo não empilha histórico.
+  function alternarTemaLeitura() {
+    const proximo = !temaLeitura
+    setTemaLeitura(proximo)
+    const emHome = pagina === 'entrada' && !mostrarPerfil && !mostrarFavoritos && !mostrarAdmin
+    if (emHome) {
+      window.history.replaceState(null, '', rotaParaURL({ pagina: 'entrada' }, proximo))
+    }
+  }
+
   function handleSelecionarProduto(produto) {
     navegar({ generoId: produto.genero, pagina: 'detalhe', produtoSelecionado: produto })
   }
@@ -215,7 +241,7 @@ function App() {
   }
 
   // O Perfil avisa quando troca de formulário: registrar fica em
-  // /Lume/login/criar-conta; login e demais modos ficam em /Lume/login.
+  // /Locus/login/criar-conta; login e demais modos ficam em /Locus/login.
   function handlePerfilMudarModo(modo) {
     const destino = rotaParaURL({
       pagina: 'entrada',
@@ -626,7 +652,7 @@ function App() {
           onExcluirNichos={handleExcluirNichos}
           onSalvarBanner={handleSalvarBanner}
           onExcluirBanner={handleExcluirBanner}
-          onAlternarTemaLeitura={() => setTemaLeitura((atual) => !atual)}
+          onAlternarTemaLeitura={alternarTemaLeitura}
           temaLeitura={temaLeitura}
         />
       )}

@@ -13,7 +13,7 @@ const ROTULO_STATUS = {
 }
 
 /**
- * Tela de status do pedido (/Lume/pedido/:id).
+ * Tela de status do pedido (/Locus/pedido/:id).
  * É para onde o Mercado Pago devolve o cliente (back_urls) — consulta o
  * pedido e faz polling enquanto o pagamento estiver pendente (Pix).
  */
@@ -82,7 +82,7 @@ function PedidoStatus({ pedidoId, onVoltar, onEntrar }) {
         <p className="text-center mb-8 text-sm" style={{ color: 'var(--cor-texto-suave)' }}>
           {pendente
             ? 'Aguardando confirmação do pagamento — esta página atualiza sozinha.'
-            : 'Status da sua compra na Lume.'}
+            : 'Status da sua compra na Locus.'}
         </p>
 
         {carregando && !pedido && !erro && (

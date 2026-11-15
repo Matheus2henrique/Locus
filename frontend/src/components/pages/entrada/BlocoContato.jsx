@@ -1,6 +1,6 @@
 // Número do WhatsApp da loja (formato internacional, só dígitos).
 const WHATSAPP_NUMERO = '5573998663011'
-const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMERO}?text=${encodeURIComponent('Olá! Vim pelo site da Lume e quero personalizar uma peça.')}`
+const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMERO}?text=${encodeURIComponent('Olá! Vim pelo site da Locus e quero personalizar uma peça.')}`
 
 function BlocoContato({ className = '' }) {
   return (

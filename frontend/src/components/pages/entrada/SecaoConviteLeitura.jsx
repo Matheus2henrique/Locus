@@ -32,7 +32,7 @@ function SecaoConviteLeitura({ onExplorar, temaLeitura = false }) {
           </span>
         </div>
         <div className="reading-invitation-art">
-          <img src={`${BASE}./public/IDENTIDADE VISUAL LOCUS/${imagem}`} alt="Locus por Leitura" />
+          <img src={`${BASE}IDENTIDADE VISUAL LOCUS/${imagem}`} alt="Locus por Leitura" />
         </div>
       </section>
     )
@@ -62,7 +62,7 @@ function SecaoConviteLeitura({ onExplorar, temaLeitura = false }) {
         </button>
       </div>
       <div className="reading-invitation-art">
-        <img src={`${BASE}./public/IDENTIDADE VISUAL LOCUS/${imagem}`} alt="Convite para leitura" />
+        <img src={`${BASE}IDENTIDADE VISUAL LOCUS/${imagem}`} alt="Convite para leitura" />
       </div>
     </section>
   )

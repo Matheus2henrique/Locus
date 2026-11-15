@@ -10,8 +10,10 @@ function NavDesktop({
   onAdiarFechamento,
   subcategorias = subcategoriasPadrao,
 }) {
+  // mx-auto centraliza o menu entre a logo e o campo de busca
+  // (o espaço livre divide igual entre as margens automáticas).
   return (
-    <nav className="hidden lg:block">
+    <nav className="hidden lg:block lg:mx-auto">
       <ul className="flex gap-[30px] list-none items-center">
         {generos.map((genero, indice) => {
           // Sem subpasta não existe painel: só o clique, que vai direto pra URL.

@@ -35,7 +35,7 @@ const SECOES = [
     corpo: [
       'Você pode pedir acesso, correção ou exclusão dos seus dados.',
       'A exclusão está disponível em Perfil → Excluir minha conta, e apaga a conta, o cadastro de contato e a inscrição na newsletter.',
-      'Dúvidas sobre privacidade: ola@lume.com.',
+      'Dúvidas sobre privacidade: ola@locus.com.',
     ],
   },
 ]

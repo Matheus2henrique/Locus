@@ -65,6 +65,20 @@ function Header({ generoId, onSelecionarGenero, onHome, onMostrarPerfil, totalCa
   // ponteiro saiu dele E do painel — o atraso evita piscar ao atravessar o vão.
   useEffect(() => () => clearTimeout(nichoTimerRef.current), [])
 
+  // Drawer do menu: trava o scroll da página por trás e fecha no Escape.
+  useEffect(() => {
+    if (!menuAberto) return
+    document.body.style.overflow = 'hidden'
+    function onEsc(e) {
+      if (e.key === 'Escape') setMenuAberto(false)
+    }
+    document.addEventListener('keydown', onEsc)
+    return () => {
+      document.body.style.overflow = ''
+      document.removeEventListener('keydown', onEsc)
+    }
+  }, [menuAberto])
+
   function abrirNicho(id) {
     clearTimeout(nichoTimerRef.current)
     if (buscando) setBuscando(false)
@@ -111,12 +125,13 @@ function Header({ generoId, onSelecionarGenero, onHome, onMostrarPerfil, totalCa
   }
 
   return (
-    <header
-      className="h-[64px] md:h-[90px] border-b fixed top-0 left-0 right-0 z-40 header-tema header-vidro"
-      style={{
-        borderColor: 'var(--cor-borda)',
-      }}
-    >
+    <>
+      <header
+        className="h-[64px] md:h-[90px] border-b fixed top-0 left-0 right-0 z-40 header-tema header-vidro"
+        style={{
+          borderColor: 'var(--cor-borda)',
+        }}
+      >
       <div className="max-w-[1400px] h-full mx-auto flex items-center justify-between px-4 md:px-6">
         <Logo onHome={onHome} />
 
@@ -190,22 +205,26 @@ function Header({ generoId, onSelecionarGenero, onHome, onMostrarPerfil, totalCa
         />
       </div>
 
-      {buscando && (
-        <PainelBusca
-          containerRef={buscaRef}
-          busca={busca}
-          onMudarBusca={setBusca}
-          onEnter={confirmarPrimeiro}
-          onEsc={() => setBuscando(false)}
-          temResultado={temResultado}
-          produtosEncontrados={produtosEncontrados}
-          nichosEncontrados={nichosEncontrados}
-          nomeGenero={nomeGenero}
-          onEscolherProduto={confirmarProduto}
-          onEscolherGenero={confirmarBusca}
-        />
-      )}
+        {buscando && (
+          <PainelBusca
+            containerRef={buscaRef}
+            busca={busca}
+            onMudarBusca={setBusca}
+            onEnter={confirmarPrimeiro}
+            onEsc={() => setBuscando(false)}
+            temResultado={temResultado}
+            produtosEncontrados={produtosEncontrados}
+            nichosEncontrados={nichosEncontrados}
+            nomeGenero={nomeGenero}
+            onEscolherProduto={confirmarProduto}
+            onEscolherGenero={confirmarBusca}
+          />
+        )}
+      </header>
 
+      {/* Fora do <header>: o backdrop-filter do .header-vidro cria um
+          containing block e prendia o fixed do drawer na altura do header
+          (64/90px) — o fundo não cobria Perfil/Favoritos nem a lista. */}
       {menuAberto && (
         <MenuMobile
           generos={generos}
@@ -213,9 +232,11 @@ function Header({ generoId, onSelecionarGenero, onHome, onMostrarPerfil, totalCa
           subcategorias={subcategorias}
           onEscolherGenero={(id, sub) => navegar(() => onSelecionarGenero(id, sub))}
           onFechar={() => setMenuAberto(false)}
+          onMostrarPerfil={() => navegar(() => onMostrarPerfil())}
+          onMostrarFavoritos={() => navegar(() => onMostrarFavoritos())}
         />
       )}
-    </header>
+    </>
   )
 }
 

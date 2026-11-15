@@ -66,8 +66,8 @@ function Card({ nome, imagem, preco, estoque, tipo, permiteUpload, onClick, favo
         </div>
         <div className="absolute bottom-3 left-3 flex gap-2">
           <span
-            className="text-xs font-semibold px-3 py-1 rounded-full shadow"
-            style={{ background: 'var(--cor-esverdiado-bts)', color: '#fff' }}
+            className="text-xs font-semibold px-3 py-1 rounded-full shadow text-white esverdiado-claro"
+            style={{ background: 'var(--cor-esverdiado-bts)' }}
           >
             {tipoLabel}
           </span>
@@ -109,7 +109,7 @@ function Card({ nome, imagem, preco, estoque, tipo, permiteUpload, onClick, favo
             e.stopPropagation()
             onClick()
           }}
-          className="mt-4 w-full py-2 rounded-lg text-white cursor-pointer transition-colors duration-300 border-none"
+          className="mt-4 w-full py-2 rounded-lg text-white cursor-pointer transition-colors duration-300 border-none esverdiado-claro"
           style={{ background: 'var(--cor-esverdiado-bts)' }}
         >
           Ver detalhes

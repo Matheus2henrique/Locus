@@ -11,7 +11,7 @@ function AreaCompra({ precoTotal, tamanho, cor, esgotado, noCarrinho, avisoId, a
             onComprar(arquivo)
           }}
           disabled={esgotado}
-          className="flex-1 flex items-center justify-center gap-2 py-4 rounded-xl text-white text-lg font-medium cursor-pointer transition-all duration-300 hover:scale-[1.02] border-none disabled:opacity-50 disabled:cursor-not-allowed"
+          className="flex-1 flex items-center justify-center gap-2 py-4 rounded-xl text-white text-lg font-medium cursor-pointer transition-all duration-300 hover:scale-[1.02] border-none disabled:opacity-50 disabled:cursor-not-allowed esverdiado-claro"
           style={{ background: 'var(--cor-esverdiado-bts)', boxShadow: '0 10px 25px rgba(0,0,0,0.2)' }}
         >
           {noCarrinho ? <Check className="w-5 h-5" /> : <Carrinho className="w-5 h-5" />}

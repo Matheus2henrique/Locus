@@ -24,7 +24,7 @@ const SECOES = [
   {
     titulo: 'Como solicitar',
     corpo: [
-      'Envie um e-mail para ola@lume.com com o número do pedido, uma foto do produto (e do defeito, se houver) e sua preferência: troca ou devolução.',
+      'Envie um e-mail para ola@locus.com com o número do pedido, uma foto do produto (e do defeito, se houver) e sua preferência: troca ou devolução.',
       'Respondemos com as instruções de envio em até 2 dias úteis.',
       'Frete de devolução por defeito da loja: por nossa conta. Arrependimento (desistência): frete de devolução por conta do cliente.',
     ],

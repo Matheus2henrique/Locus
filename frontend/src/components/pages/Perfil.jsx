@@ -28,7 +28,7 @@ function carregarGoogleIdentity() {
 
 function Perfil({ onVoltar, onMostrarAdmin, onAdminLogin, onAdminLogout, modoInicial = 'login', onMudarModo }) {
   // Verificar/recuperar/redefinir são internos desta tela; login e registrar
-  // vêm da URL que o App controla (/Lume/login e /Lume/login/criar-conta).
+  // vêm da URL que o App controla (/Locus/login e /Locus/login/criar-conta).
   const [modoInterno, setModoInterno] = useState(null) // verificar | recuperar | redefinir
   const modo = modoInterno ?? (modoInicial === 'registrar' ? 'registrar' : 'login')
   const [nome, setNome] = useState('')
@@ -49,7 +49,7 @@ function Perfil({ onVoltar, onMostrarAdmin, onAdminLogin, onAdminLogout, modoIni
   const modoComCodigo = modo === 'verificar' || modo === 'recuperar' || modo === 'redefinir'
 
   // Toda troca de modo passa por aqui: login/registrar são ditados pela URL
-  // (o App leva para /Lume/login/criar-conta ou /Lume/login); os demais modos
+  // (o App leva para /Locus/login/criar-conta ou /Locus/login); os demais modos
   // ficam internos e sobrevivem ao voltar/avançar do navegador.
   function mudarModo(novo) {
     setModoInterno(novo === 'login' || novo === 'registrar' ? null : novo)
@@ -464,7 +464,7 @@ function Perfil({ onVoltar, onMostrarAdmin, onAdminLogin, onAdminLogout, modoIni
         </h2>
         <p className="text-center mb-8" style={{ color: 'var(--cor-texto-suave)' }}>
           {modo === 'login'
-            ? 'Acesse sua conta Lume. Se ainda não tiver cadastro, clique em Crie Sua Conta.'
+            ? 'Acesse sua conta Locus. Se ainda não tiver cadastro, clique em Crie Sua Conta.'
             : modo === 'registrar'
               ? 'Crie sua conta para começar a comprar.'
               : modo === 'recuperar'

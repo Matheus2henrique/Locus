@@ -1,6 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@800&family=Cinzel:wght@400..900&family=Cormorant+Garamond:ital,wght@0,500;1,500&family=Montserrat:wght@400;500;600&display=swap");
 @import "tailwindcss";
 
+/* Breakpoint extra: telas entre celular estreito e sm (ex.: iPhone SE/12 mini). */
+@theme {
+  --breakpoint-xs: 420px;
+}
+
 :root {
   --cor-primaria: #13233c;
   --cor-primaria-suave: #1a1a2e;
@@ -90,6 +95,29 @@
   --cor-perigo: #ef4444;
 }
 
+/* Modo claro: o drawer do carrinho acompanha o tema da página —
+   mesma paleta papel/verde do [data-theme='reading']. */
+[data-theme='reading'] .carrinho-drawer {
+  --cor-primaria: #4b5510;
+  --cor-primaria-suave: #dce2d1;
+  --cor-fundo: #f2ede3;
+  --cor-fundo-suave: #f8f5ef;
+  --cor-fundo-cartao: #fbf7f0f4;
+  --cor-borda: #2e3a2e33;
+  --cor-texto: #2e3a2e;
+  --cor-texto-suave: #5b6653;
+  --cor-perigo: #ef4444;
+}
+
+/* Modo claro: o drawer do menu usa a mesma troca do .carrinho-drawer —
+   sem ela, --cor-fundo-suave (#fbf7f0) é igual ao fundo do painel e os
+   botões Perfil/Favoritos ficam sem nenhum background visível. */
+[data-theme='reading'] .menu-drawer {
+  --cor-fundo-suave: #f8f5ef;
+  --cor-fundo-cartao: #fbf7f0f4;
+  --cor-borda: #2e3a2e33;
+}
+
 body {
   font-family: Arial, sans-serif;
 }
@@ -107,11 +135,19 @@ footer {
   border-top: 1px solid var(--cor-borda);
 }
 
+/* Ícones do header: brancos no modo escuro, pretos no modo claro. */
 .header-icon-lupa,
 .header-icon-perfil,
 .header-icon-carrinho,
 .header-icon-heart path {
   stroke: #fff;
+}
+
+[data-theme='reading'] .header-icon-lupa,
+[data-theme='reading'] .header-icon-perfil,
+[data-theme='reading'] .header-icon-carrinho,
+[data-theme='reading'] .header-icon-heart path {
+  stroke: #000;
 }
 
 ::selection {
@@ -392,4 +428,54 @@ footer {
   max-width: 115%;
   margin-top: -25px;
   object-fit: contain;
+}
+
+/* Modo escuro: o card "Um respiro" continua claro (#f2ede3), igual já está.
+   Modo claro: ele inverte — fundo escuro sobre o papel, texto claro. */
+[data-theme='reading'] .reading-invitation {
+  background: #2e3a2e;
+  color: #f2ede3;
+}
+
+[data-theme='reading'] .reading-invitation p {
+  color: #aeb8a0;
+}
+
+[data-theme='reading'] .reading-invitation .reading-hero-signature {
+  color: #aeb8a0;
+}
+
+[data-theme='reading'] .reading-button {
+  background: #f2ede3;
+  color: #2e3a2e;
+}
+
+[data-theme='reading'] .reading-button:hover {
+  background: #dce2d1;
+}
+
+/* Caixinhas de ícone da seção "Por que Locus" (SecaoPorQueLume).
+   Escuro: fundo 10% translúcido + borda 30% (como estava).
+   Claro: fundo sólido verde-claro e ícone verde escuro. */
+.porque-icone {
+  background: color-mix(in srgb, var(--cor-esverdiado-bts) 10%, transparent);
+  border: 1px solid color-mix(in srgb, var(--cor-esverdiado-bts) 30%, transparent);
+}
+
+.porque-icone-svg {
+  color: var(--cor-esverdiado-bts);
+}
+
+[data-theme='reading'] .porque-icone {
+  background: var(--cor-esverdiado-bts);
+}
+
+[data-theme='reading'] .porque-icone-svg {
+  color: var(--cor-esverdiado);
+}
+
+/* Modo claro: botões e selos com fundo --cor-esverdiado-bts (#dce2d1)
+   usam texto escuro — branco sumiria no verde claro. Escuro: inalterado. */
+[data-theme='reading'] .esverdiado-claro {
+  color: var(--cor-texto);
 }

@@ -1,4 +1,4 @@
-const CHAVE_CARRINHO = 'lume_carrinho'
+const CHAVE_CARRINHO = 'locus_carrinho'
 
 /**
  * Guarda só o que interessa das opções (cor/tamanho) e descarta o resto.

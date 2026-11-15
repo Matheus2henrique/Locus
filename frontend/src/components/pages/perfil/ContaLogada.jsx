@@ -107,7 +107,7 @@ function ContaLogada({
   return (
     <section className="py-[70px] flex justify-center px-6" style={{ background: 'var(--cor-fundo)' }}>
       <div className="w-full max-w-md">
-        <img src={`${import.meta.env.BASE_URL}./public/IDENTIDADE VISUAL LOCUS/perfil.png`} alt="Lume 3D" className="w-32 h-auto mx-auto mb-6" />
+        <img src={`${import.meta.env.BASE_URL}IDENTIDADE VISUAL LOCUS/perfil.png`} alt="Locus 3D" className="w-32 h-auto mx-auto mb-6" />
         <h2 className="text-4xl font-[Georgia,serif] mb-2 text-center" style={{ color: 'var(--cor-texto)' }}>
           Olá, {usuario.nome || 'leitor(a)'}!
         </h2>

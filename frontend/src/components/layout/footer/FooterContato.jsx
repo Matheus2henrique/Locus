@@ -1,6 +1,6 @@
 import { Instagram, WhatsApp } from '../../ui/Icones'
 
-const LINK_INSTAGRAM = 'https://www.instagram.com/3d_.lume/'
+const LINK_INSTAGRAM = 'https://www.instagram.com/3d_.locus/'
 const WHATSAPP_NUMERO = '5573999238860'
 const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMERO}?text=${encodeURIComponent('Olá! Vim pelo site da Locus e quero personalizar uma peça.')}`
 
@@ -17,7 +17,7 @@ function FooterContato() {
         Contato
       </h4>
       <ul className="flex flex-col gap-3 text-sm list-none" style={{ color: 'var(--cor-texto-suave)' }}>
-        <li>3dlumebrasil@gmail.com</li>
+        <li>3dlocusbrasil@gmail.com</li>
         <li>(73) 99923-8860</li>
         <li>Atendemos todo o Brasil</li>
       </ul> 
@@ -27,7 +27,7 @@ function FooterContato() {
           href={LINK_INSTAGRAM}
           target="_blank"
           rel="noopener noreferrer"
-          aria-label="Instagram da Lume"
+          aria-label="Instagram da Locus"
           title="Instagram"
           className="flex items-center justify-center w-10 h-10 rounded-full border transition-all duration-300 hover:scale-110"
           style={estiloRede}
@@ -36,7 +36,7 @@ function FooterContato() {
         </a>
         <a
           href={WHATSAPP_LINK}
-          aria-label="WhatsApp da Lume"
+          aria-label="WhatsApp da Locus"
           title="WhatsApp"
           {...(WHATSAPP_LINK !== '#' ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
           className="flex items-center justify-center w-10 h-10 rounded-full border transition-all duration-300 hover:scale-110"

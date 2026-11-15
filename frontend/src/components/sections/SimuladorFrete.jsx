@@ -154,7 +154,7 @@ function SimuladorFrete() {
             Simule o valor do frete
           </h2>
           <p className="mt-2" style={{ color: 'var(--cor-texto-suave)' }}>
-            Preencha os dados de onde você mora e veja quanto custa levar a Lume até a sua casa.
+            Preencha os dados de onde você mora e veja quanto custa levar a Locus até a sua casa.
           </p>
 
           <form className="mt-6 flex flex-col gap-3" onSubmit={calcular}>

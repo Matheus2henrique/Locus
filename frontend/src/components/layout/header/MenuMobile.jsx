@@ -5,7 +5,7 @@ import { subcategorias as subcategoriasPadrao } from '../../../data/subcategoria
 // Clicar na subpasta leva direto para a página do nicho já com o filtro dela
 // (?sub=...); nicho sem subpasta — Coleção Dinossauro e Pacotes — o clique já
 // vai direto para a página do nicho.
-function MenuMobile({ generos, generoId, onEscolherGenero, onFechar, subcategorias = subcategoriasPadrao }) {
+function MenuMobile({ generos, generoId, onEscolherGenero, onFechar, onMostrarPerfil, onMostrarFavoritos, subcategorias = subcategoriasPadrao }) {
   const [nichoAberto, setNichoAberto] = useState(null)
 
   function alternarNicho(id) {
@@ -14,7 +14,7 @@ function MenuMobile({ generos, generoId, onEscolherGenero, onFechar, subcategori
 
   return (
     <div
-      className="fixed inset-0 z-50 lg:hidden"
+      className="fixed inset-0 z-50 lg:hidden header-tema"
       role="dialog"
       aria-modal="true"
       aria-label="Menu"
@@ -25,7 +25,7 @@ function MenuMobile({ generos, generoId, onEscolherGenero, onFechar, subcategori
       />
 
       <div
-        className="absolute left-0 top-0 h-full w-[82%] max-w-[340px] flex flex-col shadow-2xl animate-[slideInLeft_0.3s_ease-out]"
+        className="absolute left-0 top-0 h-full w-[82%] max-w-[340px] flex flex-col shadow-2xl animate-[slideInLeft_0.3s_ease-out] menu-drawer"
         style={{ background: 'var(--cor-fundo-cartao)' }}
       >
 
@@ -37,8 +37,7 @@ function MenuMobile({ generos, generoId, onEscolherGenero, onFechar, subcategori
             className="flex items-center leading-none"
             style={{ fontFamily: 'Cinzel, Georgia, serif', color: 'var(--cor-texto)' }}
           >
-            <span className="font-bold" style={{ fontSize: '32px' }}>Lume</span>
-            <img src={`${import.meta.env.BASE_URL}logo.jpeg`} alt="" className="h-8 w-8 rounded-full object-cover mx-0.5" />
+            <img src={`${import.meta.env.BASE_URL}IDENTIDADE VISUAL LOCUS/locus-png.png`} alt="" className="h-8 w-38 rounded-full object-cover mx-0.5" />
           </span>
           <button
             onClick={onFechar}
@@ -49,6 +48,10 @@ function MenuMobile({ generos, generoId, onEscolherGenero, onFechar, subcategori
             ✕
           </button>
         </div>
+
+        {/* Ações que no desktop ficam na barra do header: em telas muito
+            estreitas os ícones saem de lá e ficam acessíveis aqui. */}
+        
 
         <ul className="flex-1 overflow-y-auto px-4 py-4 list-none flex flex-col gap-1">
           {generos.map((genero) => {
@@ -91,6 +94,30 @@ function MenuMobile({ generos, generoId, onEscolherGenero, onFechar, subcategori
             )
           })}
         </ul>
+
+        <div className="flex flex-col gap-2 px-4 py-3 border-b" style={{ borderColor: 'var(--cor-borda)' }}>
+          <button
+            onClick={() => { onFechar(); onMostrarPerfil?.() }}
+            className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl border cursor-pointer text-sm font-medium"
+            style={{ background: 'var(--cor-fundo-suave)', borderColor: 'var(--cor-borda)', color: 'var(--cor-texto)' }}
+          >
+            <svg viewBox="0 0 24 24" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+              <circle cx="12" cy="7" r="4" />
+            </svg>
+            Perfil
+          </button>
+          <button
+            onClick={() => { onFechar(); onMostrarFavoritos?.() }}
+            className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl border cursor-pointer text-sm font-medium"
+            style={{ background: 'var(--cor-fundo-suave)', borderColor: 'var(--cor-borda)', color: 'var(--cor-texto)' }}
+          >
+            <svg viewBox="0 0 24 24" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+            </svg>
+            Favoritos
+          </button>
+        </div>
       </div>
     </div>
   )

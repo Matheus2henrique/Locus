@@ -196,7 +196,7 @@ function CarrinhoDrawer({ itens, onFechar, onRemover, onAlterar, onFinalizar, on
         setEtapa('pagando')
         const preferencia = await api.criarPreferencia({
           pedidoId: criado.id,
-          titulo: `Pedido Lume #${criado.id}`,
+          titulo: `Pedido Locus #${criado.id}`,
           cliente,
           // Convidado usa o token devolvido na criação do pedido;
           // o valor cobrado vem do banco, não daqui.
