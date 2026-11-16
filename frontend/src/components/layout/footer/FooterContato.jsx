@@ -1,6 +1,6 @@
 import { Instagram, WhatsApp } from '../../ui/Icones'
 
-const LINK_INSTAGRAM = 'https://www.instagram.com/3d_.locus/'
+const LINK_INSTAGRAM = 'https://www.instagram.com/locus_.3d/'
 const WHATSAPP_NUMERO = '5573999238860'
 const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMERO}?text=${encodeURIComponent('Olá! Vim pelo site da Locus e quero personalizar uma peça.')}`
 
