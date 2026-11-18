@@ -532,3 +532,168 @@ footer {
   --cor-filtro-texto: var(--cor-texto);
   --cor-filtro-borda: var(--cor-borda);
 }
+
+/* =========================================================================
+   Seletor de universo do header (trazido do modelo locus.html).
+   "Por Diversao" = mundos = modo escuro; "Por Leitura" = modo claro.
+   ========================================================================= */
+.header-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  min-height: 40px;
+}
+
+.universe-switch {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 5px;
+  padding: 3px;
+  background: var(--cor-fundo-cartao);
+  border: 1px solid var(--cor-borda);
+  border-radius: 25px;
+  white-space: nowrap;
+}
+
+.universe-switch a {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  border-radius: 20px;
+  padding: 6px 10px;
+  font-size: 9px;
+  color: var(--cor-texto-suave);
+  text-decoration: none;
+}
+
+.universe-switch a.selected {
+  color: #151700;
+  background: #c4e500;
+}
+
+[data-theme='reading'] .universe-switch a.selected {
+  background: #2e3a2e;
+  color: #f2ede3;
+}
+
+[data-theme='reading'] .universe-switch a:first-child:not(.selected) {
+  color: #6b725e;
+}
+
+@media (max-width: 850px) {
+  .universe-switch a {
+    font-size: 8px;
+    padding: 6px 7px;
+  }
+}
+
+@media (max-width: 680px) {
+  .universe-switch {
+    margin: 0 0 6px;
+    gap: 8px;
+    padding: 2px;
+  }
+  .universe-switch a {
+    font-size: 9px;
+    gap: 6px;
+    padding: 5px 14px;
+  }
+}
+
+/* O header fixo ganhou a linha do switch: âncoras (destaques/vitrine)
+   param abaixo dele em vez de sumir por trás. */
+html {
+  scroll-padding-top: 104px;
+}
+
+@media (min-width: 768px) {
+  html {
+    scroll-padding-top: 130px;
+  }
+}
+
+/* ============================================================
+   Hero — `.fun-hero container` portado do modelo locus.html
+   (tamanho da imagem e posição da imagem/textos)
+   ============================================================ */
+.container {
+  width: min(1200px, calc(100% - 80px));
+  margin-inline: auto;
+}
+
+.fun-hero {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 26px;
+  min-height: 600px;
+  padding-block: 52px 56px;
+}
+
+.fun-hero .hero-copy {
+  position: relative;
+  z-index: 2;
+}
+
+.fun-hero .hero-art {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-width: 0;
+  aspect-ratio: 1;
+  isolation: isolate;
+}
+
+.fun-hero .portal-hero-image {
+  width: 102%;
+  max-width: 110%;
+  filter: drop-shadow(0 18px 35px rgba(121, 0, 213, 0.09));
+  animation: float 7s ease-in-out infinite;
+}
+
+@media (min-width: 1440px) {
+  .container {
+    width: min(1240px, calc(100% - 100px));
+  }
+  .fun-hero {
+    min-height: 650px;
+  }
+}
+
+@media (max-width: 1100px) {
+  .container {
+    width: calc(100% - 52px);
+  }
+  .fun-hero {
+    min-height: 545px;
+  }
+}
+
+@media (max-width: 850px) {
+  .fun-hero {
+    min-height: 500px;
+    padding-block: 40px;
+  }
+}
+
+@media (max-width: 680px) {
+  .fun-hero {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding: 35px 0 27px;
+    min-height: 0;
+  }
+  .fun-hero .hero-art {
+    width: min(100%, 410px);
+    justify-self: center;
+    aspect-ratio: 1.13;
+    margin-top: 7px;
+  }
+  .fun-hero .portal-hero-image {
+    width: 94%;
+    max-height: 380px;
+    object-fit: contain;
+  }
+}

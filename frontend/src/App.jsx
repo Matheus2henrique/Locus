@@ -548,7 +548,7 @@ function App() {
 
   return (
     <div
-      className="w-full min-h-screen flex flex-col pt-[64px] md:pt-[90px]"
+      className="w-full min-h-screen flex flex-col pt-[104px] md:pt-[130px]"
       data-theme={temaLeitura ? 'reading' : undefined}
       style={{
         background: 'var(--cor-fundo)',
@@ -569,10 +569,12 @@ function App() {
         nichos={nichos}
         produtos={produtos}
         subcategorias={mapaSubcategorias}
+        temaLeitura={temaLeitura}
+        onAlternarTemaLeitura={alternarTemaLeitura}
       />
 
       {sucesso && (
-        <div className="fixed top-[100px] left-1/2 -translate-x-1/2 z-[100] py-3 px-6 rounded-lg text-sm font-medium shadow-lg" style={{ background: 'var(--esverdiado-bts)', color: 'var(--cor-texto)', border: '1px solid var(--esverdiado-bts)' }}>
+        <div className="fixed top-[114px] md:top-[146px] left-1/2 -translate-x-1/2 z-[100] py-3 px-6 rounded-lg text-sm font-medium shadow-lg" style={{ background: 'var(--esverdiado-bts)', color: 'var(--cor-texto)', border: '1px solid var(--esverdiado-bts)' }}>
           {sucesso}
         </div>
       )}

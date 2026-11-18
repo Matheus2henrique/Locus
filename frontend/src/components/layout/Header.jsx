@@ -6,10 +6,11 @@ import NavDesktop from './header/NavDesktop'
 import BarraAcoes from './header/BarraAcoes'
 import PainelBusca from './header/PainelBusca'
 import MenuMobile from './header/MenuMobile'
+import UniverseSwitch from './header/UniverseSwitch'
 
 const ATRASO_FECHO_NICHO = 200
 
-function Header({ generoId, onSelecionarGenero, onHome, onMostrarPerfil, totalCarrinho = 0, onMostrarCarrinho, totalFavoritos = 0, onMostrarFavoritos, nichos, produtos = [], onSelecionarProduto, subcategorias = undefined }) {
+function Header({ generoId, onSelecionarGenero, onHome, onMostrarPerfil, totalCarrinho = 0, onMostrarCarrinho, totalFavoritos = 0, onMostrarFavoritos, nichos, produtos = [], onSelecionarProduto, subcategorias = undefined, temaLeitura = false, onAlternarTemaLeitura }) {
   const [menuAberto, setMenuAberto] = useState(false)
   const [buscando, setBuscando] = useState(false)
   const [busca, setBusca] = useState('')
@@ -127,12 +128,12 @@ function Header({ generoId, onSelecionarGenero, onHome, onMostrarPerfil, totalCa
   return (
     <>
       <header
-        className="h-[64px] md:h-[90px] border-b fixed top-0 left-0 right-0 z-40 header-tema header-vidro"
+        className="border-b fixed top-0 left-0 right-0 z-40 header-tema header-vidro"
         style={{
           borderColor: 'var(--cor-borda)',
         }}
       >
-      <div className="max-w-[1400px] h-full mx-auto flex items-center justify-between px-4 md:px-6">
+      <div className="max-w-[1400px] h-[64px] md:h-[90px] mx-auto flex items-center justify-between px-4 md:px-6">
         <Logo onHome={onHome} />
 
         <NavDesktop
@@ -203,6 +204,18 @@ function Header({ generoId, onSelecionarGenero, onHome, onMostrarPerfil, totalCa
           menuAberto={menuAberto}
           onAlternarMenu={() => setMenuAberto((m) => !m)}
         />
+      </div>
+
+      {/* Segunda linha do header (estilo .header-bottom do modelo):
+          o seletor de universos alinhado à direita, no mesmo eixo do
+          conteúdo da linha de cima. */}
+      <div className="header-bottom">
+        <div className="w-full max-w-[1400px] mx-auto px-4 md:px-6 flex justify-end">
+          <UniverseSwitch
+            temaLeitura={temaLeitura}
+            onAlternarTemaLeitura={onAlternarTemaLeitura}
+          />
+        </div>
       </div>
 
         {buscando && (
