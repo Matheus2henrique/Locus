@@ -11,9 +11,11 @@ import PedidoStatus from './components/pages/PedidoStatus'
 import Privacidade from './components/pages/Privacidade'
 import TrocasEDevolucoes from './components/pages/TrocasEDevolucoes'
 import PerguntasFrequentes from './components/pages/PerguntasFrequentes'
+import Pagina404 from './components/pages/Pagina404'
 import Admin from './components/pages/Admin'
 import ProdutoFormModal from './components/ui/ProdutoFormModal'
 import { generos as generosPadrao } from './data/produtos'
+import { generosLeitura } from './data/generosLeitura'
 import { subcategorias as subcategoriasPadrao } from './data/subcategorias'
 import { api, obterToken, obterUsuario } from './api'
 import { normalizarProduto } from './utils/formatar'
@@ -21,10 +23,12 @@ import { carregarCarrinho, salvarCarrinho, chaveItem, normalizarOpcoes } from '.
 
 const BASE = '/Locus'
 
-// O tema do modo claro mora na URL: /Locus/leitura é leitura, qualquer
-// outra rota (inclusive /Locus/mundos) é o modo escuro.
-function temaLeituraDaURL() {
-  return window.location.pathname.replace(BASE, '').split('/').filter(Boolean)[0] === 'leitura'
+// O mundo escolhido mora na URL: /Locus/leitura (claro), /Locus/natal ou
+// /Locus/mundos (escuro, padrão).
+function mundoDaURL() {
+  const primeiro = window.location.pathname.replace(BASE, '').split('/').filter(Boolean)[0]
+  if (primeiro === 'leitura' || primeiro === 'natal') return primeiro
+  return 'mundos'
 }
 
 // O mapa estático (data/subcategorias.js) vira a mesma forma que a API
@@ -35,7 +39,7 @@ function listaDeSubcategoriasEstatica() {
   )
 }
 
-function rotaParaURL({ generoId, pagina, produtoSelecionado, mostrarPerfil, perfilCriandoConta, mostrarFavoritos, mostrarAdmin, pedidoId, subFiltro }, temaLeitura = false) {
+function rotaParaURL({ generoId, pagina, produtoSelecionado, mostrarPerfil, perfilCriandoConta, mostrarFavoritos, mostrarAdmin, pedidoId, subFiltro }, mundo = 'mundos') {
 
   if (mostrarAdmin) return `${BASE}/admin`
   // Login e cadastro têm URLs próprias (voltar/avançar do navegador funciona).
@@ -53,9 +57,9 @@ function rotaParaURL({ generoId, pagina, produtoSelecionado, mostrarPerfil, perf
     const query = subFiltro ? `?sub=${encodeURIComponent(subFiltro)}` : ''
     return `${BASE}/${generoId}${query}`
   }
-  // Home: a URL carrega o modo de exibição — /Locus/mundos (escuro)
-  // ou /Locus/leitura (claro).
-  return temaLeitura ? `${BASE}/leitura` : `${BASE}/mundos`
+  // Home: a URL carrega o mundo — /Locus/mundos (escuro), /Locus/leitura
+  // (claro) ou /Locus/natal.
+  return `${BASE}/${mundo}`
 
 }
 
@@ -84,12 +88,13 @@ function URLparaEstado(pathname, produtosLista) {
     const produto = produtosLista.find((p) => p.id === Number(partes[2]) && p.genero === generoId)
     if (produto) return { pagina: 'detalhe', generoId, produtoSelecionado: produto }
   }
-  // Home com o modo de exibição embutido na URL.
-  if (partes[0] === 'leitura') return { pagina: 'entrada', generoId: null, temaLeitura: true }
-  if (partes[0] === 'mundos') return { pagina: 'entrada', generoId: null, temaLeitura: false }
+  // Home com o mundo embutido na URL.
+  if (partes[0] === 'leitura') return { pagina: 'entrada', generoId: null, mundo: 'leitura' }
+  if (partes[0] === 'mundos') return { pagina: 'entrada', generoId: null, mundo: 'mundos' }
+  if (partes[0] === 'natal') return { pagina: 'entrada', generoId: null, mundo: 'natal' }
   if (partes[0]) return { pagina: 'genero', generoId: partes[0], subFiltro }
 
-  return { pagina: 'entrada', generoId: null, temaLeitura: false }
+  return { pagina: 'entrada', generoId: null, mundo: 'mundos' }
 }
 
 function App() {
@@ -125,9 +130,11 @@ function App() {
   // Tema claro "Locus por Leitura": ativado pelo botão da home, vale para
   // a aplicação inteira sem mudar de página. A URL é a fonte da verdade
   // (/Locus/leitura = claro), então o estado nasce já lido dela.
-  const [temaLeitura, setTemaLeitura] = useState(temaLeituraDaURL)
+  const [mundo, setMundo] = useState(mundoDaURL)
+  // Só o modo claro usa data-theme='reading' — Natal e escuro são padrão.
+  const temaLeitura = mundo === 'leitura'
 
-  const genero = nichos.find((g) => g.id === generoId)
+  const genero = nichos.find((g) => g.id === generoId) ?? generosLeitura.find((g) => g.id === generoId)
 
   // nicho → subpastas, no formato que menus e página do nicho já consumiam.
   const mapaSubcategorias = useMemo(() => {
@@ -176,7 +183,7 @@ function App() {
     setPedidoId(proximo.pedidoId ?? null)
     setSubFiltro(proximo.subFiltro ?? null)
     window.scrollTo({ top: 0, behavior: 'smooth' })
-    window.history.pushState(null, '', rotaParaURL(proximo, temaLeitura))
+    window.history.pushState(null, '', rotaParaURL(proximo, mundo))
 
   }
 
@@ -200,8 +207,9 @@ function App() {
       setMostrarAdmin(Boolean(estado.mostrarAdmin))
       setPedidoId(estado.pedidoId ?? null)
       setSubFiltro(estado.subFiltro ?? null)
-      // /Locus/leitura e /Locus/mundos também escolhem o modo (voltar/avançar).
-      if (estado.temaLeitura !== undefined) setTemaLeitura(estado.temaLeitura)
+      // /Locus/leitura, /Locus/mundos e /Locus/natal também escolhem o
+      // mundo (voltar/avançar do navegador).
+      if (estado.mundo !== undefined) setMundo(estado.mundo)
 
     }
     sincronizar()
@@ -232,16 +240,24 @@ function App() {
     navegar({ generoId: null, pagina: 'entrada' })
   }
 
-  // Troca o modo da home e espelha na URL: /Locus/mundos ↔ /Locus/leitura.
-  // replaceState: alternar modo não empilha histórico.
-  function alternarTemaLeitura() {
-    const proximo = !temaLeitura
-    setTemaLeitura(proximo)
+  // Escolhe um mundo (universe-switch): troca o modo, espelha na URL (só
+  // quando está na home) e sobe suavemente para o topo da tela.
+  // replaceState: alternar mundo não empilha histórico.
+  function escolherMundo(novo) {
+    if (novo === mundo) return
+    setMundo(novo)
     const emHome = pagina === 'entrada' && !mostrarPerfil && !mostrarFavoritos && !mostrarAdmin
     if (emHome) {
-      window.history.replaceState(null, '', rotaParaURL({ pagina: 'entrada' }, proximo))
+      window.history.replaceState(null, '', rotaParaURL({ pagina: 'entrada' }, novo))
     }
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
 
+  // Botão do convite de leitura: leitura ↔ mundos. Do Natal ele leva
+  // direto para /Locus/mundos.
+  function alternarTemaLeitura() {
+    if (mundo === 'natal') return escolherMundo('mundos')
+    escolherMundo(temaLeitura ? 'mundos' : 'leitura')
   }
 
   function handleSelecionarProduto(produto) {
@@ -549,7 +565,7 @@ function App() {
   return (
     <div
       className="w-full min-h-screen flex flex-col pt-[104px] md:pt-[130px]"
-      data-theme={temaLeitura ? 'reading' : undefined}
+      data-theme={mundo !== 'mundos' ? 'reading' : undefined}
       style={{
         background: 'var(--cor-fundo)',
         color: 'var(--cor-texto)',
@@ -569,8 +585,8 @@ function App() {
         nichos={nichos}
         produtos={produtos}
         subcategorias={mapaSubcategorias}
-        temaLeitura={temaLeitura}
-        onAlternarTemaLeitura={alternarTemaLeitura}
+        mundo={mundo}
+        onEscolherMundo={escolherMundo}
       />
 
       {sucesso && (
@@ -651,6 +667,10 @@ function App() {
           admin={admin}
           onEditarProduto={handleEditarProduto}
         />
+      ) : pagina === 'genero' ? (
+        // A URL parece um gênero, mas o id não existe em nenhum mundo —
+        // rota não mapeada, mostra erro em vez da home.
+        <Pagina404 onVoltar={handleVoltarHome} />
       ) : (
         <Entrada
           produtos={produtos}
@@ -667,7 +687,7 @@ function App() {
           onSalvarBanner={handleSalvarBanner}
           onExcluirBanner={handleExcluirBanner}
           onAlternarTemaLeitura={alternarTemaLeitura}
-          temaLeitura={temaLeitura}
+          mundo={mundo}
         />
       )}
 
@@ -696,6 +716,7 @@ function App() {
           onTrocas={() => navegar({ pagina: 'trocas' })}
           onFaq={() => navegar({ pagina: 'faq' })}
           nichos={nichos}
+          mundo={mundo}
         />
       )}
 

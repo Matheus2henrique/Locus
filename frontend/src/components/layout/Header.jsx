@@ -10,7 +10,7 @@ import UniverseSwitch from './header/UniverseSwitch'
 
 const ATRASO_FECHO_NICHO = 200
 
-function Header({ generoId, onSelecionarGenero, onHome, onMostrarPerfil, totalCarrinho = 0, onMostrarCarrinho, totalFavoritos = 0, onMostrarFavoritos, nichos, produtos = [], onSelecionarProduto, subcategorias = undefined, temaLeitura = false, onAlternarTemaLeitura }) {
+function Header({ generoId, onSelecionarGenero, onHome, onMostrarPerfil, totalCarrinho = 0, onMostrarCarrinho, totalFavoritos = 0, onMostrarFavoritos, nichos, produtos = [], onSelecionarProduto, subcategorias = undefined, mundo = 'mundos', onEscolherMundo }) {
   const [menuAberto, setMenuAberto] = useState(false)
   const [buscando, setBuscando] = useState(false)
   const [busca, setBusca] = useState('')
@@ -138,6 +138,7 @@ function Header({ generoId, onSelecionarGenero, onHome, onMostrarPerfil, totalCa
 
         <NavDesktop
           generos={generos}
+          mundo={mundo}
           generoId={generoId}
           onSelecionarGenero={(id, sub) => {
             fecharNicho()
@@ -212,8 +213,8 @@ function Header({ generoId, onSelecionarGenero, onHome, onMostrarPerfil, totalCa
       <div className="header-bottom">
         <div className="w-full max-w-[1400px] mx-auto px-4 md:px-6 flex justify-end">
           <UniverseSwitch
-            temaLeitura={temaLeitura}
-            onAlternarTemaLeitura={onAlternarTemaLeitura}
+            mundo={mundo}
+            onEscolherMundo={onEscolherMundo}
           />
         </div>
       </div>

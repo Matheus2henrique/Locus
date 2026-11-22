@@ -1,13 +1,13 @@
 const BASE = import.meta.env.BASE_URL
 
-function SecaoConviteLeitura({ onExplorar, temaLeitura = false }) {
-  // No modo claro os textos viram os do /literatura do modelo e as
-  // imagens trocam de lugar com o Hero.
-  const imagem = temaLeitura ? 'locu.png' : 'locu-lendo.png'
+function SecaoConviteLeitura({ onExplorar, mundo = 'mundos' }) {
+  // No modo claro (e no Natal, por decisão) os textos viram os do
+  // /literatura do modelo e as imagens trocam de lugar com o Hero.
+  const imagem = mundo === 'leitura' ? 'locu.png' : 'locu-lendo.png'
 
-  if (temaLeitura) {
+  if (mundo === 'leitura' || mundo === 'natal') {
     return (
-      <section className="reading-invitation">
+      <section className="reading-invitation" id="sobre">
         <div className="reading-invitation-copy">
           <h2>
             Sua próxima história

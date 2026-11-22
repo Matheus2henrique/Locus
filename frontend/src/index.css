@@ -697,3 +697,250 @@ html {
     object-fit: contain;
   }
 }
+
+/* ============================================================
+   Hero do Natal — /Locus/natal (referência: modelo ECHRIST
+   "Christmas Event Page": fundo vermelho, neve, pinheiros
+   brancos, contagem regressiva e dois botões)
+   ============================================================ */
+.natal-hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 620px;
+  padding: 70px 16px 170px;
+  border-radius: 14px;
+  overflow: hidden;
+  isolation: isolate;
+  background: radial-gradient(ellipse 115% 95% at 50% 30%, #e04557 0%, #c62438 52%, #9d1124 100%);
+  color: #fff;
+}
+
+.natal-conteudo {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.natal-data {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  opacity: 0.92;
+}
+
+.natal-data::before,
+.natal-data::after {
+  content: '\2014';
+  margin-inline: 12px;
+  opacity: 0.75;
+}
+
+.natal-titulo {
+  margin: 18px 0 0;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: clamp(64px, 12vw, 118px);
+  line-height: 0.92;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  text-shadow: 0 8px 26px rgba(70, 0, 10, 0.35);
+}
+
+.natal-titulo span {
+  display: block;
+}
+
+.natal-contagem {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  margin-top: 28px;
+}
+
+.natal-contagem .natal-unidade {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 58px;
+}
+
+.natal-contagem strong {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(38px, 7vw, 58px);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.natal-contagem span {
+  margin-top: 7px;
+  font-size: 10px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+.natal-contagem i {
+  font-style: normal;
+  font-size: clamp(26px, 5vw, 44px);
+  line-height: 1;
+  padding-top: 4px;
+  opacity: 0.65;
+}
+
+.natal-botoes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 34px;
+}
+
+.natal-botao {
+  cursor: pointer;
+  border: 2px solid transparent;
+  border-radius: 6px;
+  padding: 13px 30px;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  transition: transform 0.15s, opacity 0.15s, background-color 0.15s;
+}
+
+.natal-botao--verde {
+  background: #2f8f4e;
+  color: #fff;
+}
+
+.natal-botao--linha {
+  background: transparent;
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.85);
+}
+
+.natal-botao:hover {
+  transform: translateY(-2px);
+}
+
+.natal-botao--verde:hover {
+  opacity: 0.9;
+}
+
+.natal-botao--linha:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.natal-mascote {
+  position: absolute;
+  z-index: 2;
+  pointer-events: none;
+  filter: drop-shadow(0 12px 20px rgba(60, 0, 8, 0.35));
+}
+
+.natal-mascote--esq {
+  left: -8px;
+  top: 16px;
+  width: clamp(84px, 12vw, 150px);
+  transform: rotate(-6deg);
+}
+
+.natal-mascote--dir {
+  right: -8px;
+  top: 10px;
+  width: clamp(90px, 13vw, 160px);
+  transform: rotate(5deg);
+}
+
+.natal-flocos {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.natal-florco {
+  position: absolute;
+  top: -8%;
+  border-radius: 50%;
+  background: #fff;
+  animation: natal-queda linear infinite;
+}
+
+@keyframes natal-queda {
+  from {
+    top: -8%;
+  }
+  to {
+    top: 110%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .natal-florco {
+    animation: none;
+    top: 30%;
+  }
+}
+
+.natal-banco {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  z-index: 4;
+  line-height: 0;
+  pointer-events: none;
+}
+
+.natal-banco .natal-onda {
+  display: block;
+  width: 100%;
+  height: 96px;
+}
+
+.natal-pinho {
+  position: absolute;
+  bottom: 4px;
+  width: clamp(74px, 9vw, 124px);
+}
+
+.natal-pinho--esq {
+  left: clamp(14px, 7%, 90px);
+}
+
+.natal-pinho--dir {
+  right: clamp(14px, 7%, 90px);
+}
+
+@media (max-width: 680px) {
+  .natal-hero {
+    min-height: 540px;
+    padding: 64px 10px 140px;
+  }
+  .natal-mascote--esq {
+    width: 74px;
+    top: 10px;
+  }
+  .natal-mascote--dir {
+    width: 80px;
+    top: 6px;
+  }
+  .natal-contagem .natal-unidade {
+    min-width: 52px;
+  }
+  .natal-banco .natal-onda {
+    height: 74px;
+  }
+  .natal-pinho {
+    width: 62px;
+  }
+}

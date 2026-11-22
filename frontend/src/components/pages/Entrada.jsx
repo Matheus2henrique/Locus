@@ -15,7 +15,8 @@ import SecaoNewsletter from './entrada/SecaoNewsletter'
 // Para reativar, basta trocar para true.
 const BANNERS_ATIVOS = false
 
-function Entrada({ produtos, nichos, banners = [], onSelecionarGenero, onSelecionarProduto, favoritos, onToggleFavorito, admin = false, onEditarProduto, onSalvarNichos, onExcluirNichos, onSalvarBanner, onExcluirBanner, onAlternarTemaLeitura, temaLeitura = false }) {
+function Entrada({ produtos, nichos, banners = [], onSelecionarGenero, onSelecionarProduto, favoritos, onToggleFavorito, admin = false, onEditarProduto, onSalvarNichos, onExcluirNichos, onSalvarBanner, onExcluirBanner, onAlternarTemaLeitura, mundo = 'mundos' }) {
+  const temaLeitura = mundo === 'leitura'
   const [nichoEditando, setNichoEditando] = useState(null)
   // Formulário de novo banner (admin): null = fechado.
   const [novoBanner, setNovoBanner] = useState(false)
@@ -39,7 +40,7 @@ function Entrada({ produtos, nichos, banners = [], onSelecionarGenero, onSelecio
 
   return (
     <section>
-      <Hero temaLeitura={temaLeitura} />
+      <Hero mundo={mundo} />
 
       {BANNERS_ATIVOS && totalSlides > 0 && (
         <BannerNichos
@@ -77,7 +78,7 @@ function Entrada({ produtos, nichos, banners = [], onSelecionarGenero, onSelecio
           onEditarProduto={onEditarProduto}
         />
 
-        <SecaoConviteLeitura onExplorar={onAlternarTemaLeitura} temaLeitura={temaLeitura} />
+        <SecaoConviteLeitura onExplorar={onAlternarTemaLeitura} mundo={mundo} />
 
         <SimuladorFrete />
       </div>

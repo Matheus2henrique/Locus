@@ -1,8 +1,11 @@
 import MegaMenuNicho from './MegaMenuNicho'
 import { subcategorias as subcategoriasPadrao } from '../../../data/subcategorias'
+import { generosLeitura } from '../../../data/generosLeitura'
+import { generosNatal } from '../../../data/generosNatal'
 
 function NavDesktop({
   generos,
+  mundo = 'mundos',
   generoId,
   onSelecionarGenero,
   nichoAtivo,
@@ -10,13 +13,17 @@ function NavDesktop({
   onAdiarFechamento,
   subcategorias = subcategoriasPadrao,
 }) {
+  // Cada mundo tem a sua lista no menu: /Locus/leitura usa os gêneros de
+  // leitura, /Locus/natal usa os de Natal (data/generosNatal.js) e o
+  // escuro fica com os nichos padrão — todos com URL própria.
+  const lista = mundo === 'leitura' ? generosLeitura : mundo === 'natal' ? generosNatal : generos
   // mx-auto centraliza o menu entre a logo e o campo de busca
-  // (o espaço livre divide igual entre as margens automáticas).
+  // (o espaÃ§o livre divide igual entre as margens automÃ¡ticas).
   return (
     <nav className="hidden lg:block lg:mx-auto">
       <ul className="flex gap-[30px] list-none items-center">
-        {generos.map((genero, indice) => {
-          // Sem subpasta não existe painel: só o clique, que vai direto pra URL.
+        {lista.map((genero, indice) => {
+          // Sem subpasta nÃ£o existe painel: sÃ³ o clique, que vai direto pra URL.
           const subs = subcategorias[genero.id] || []
 
           return (
@@ -48,7 +55,7 @@ function NavDesktop({
                   onAbrirNicho={onAbrirNicho}
                   onAdiarFechamento={onAdiarFechamento}
                   onEscolherSubpasta={(id, sub) => onSelecionarGenero(id, sub)}
-                  alinharDireita={generos.length > 2 && indice >= generos.length - 2}
+                  alinharDireita={lista.length > 2 && indice >= lista.length - 2}
                 />
               )}
             </li>

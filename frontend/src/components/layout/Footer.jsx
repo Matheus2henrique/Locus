@@ -1,10 +1,17 @@
 import { generos as generosPadrao } from '../../data/produtos'
+import { generosLeitura } from '../../data/generosLeitura'
+import { generosNatal } from '../../data/generosNatal'
 import FooterColunas from './footer/FooterColunas'
 import FooterContato from './footer/FooterContato'
 import FooterNewsletter from './footer/FooterNewsletter'
 
-function Footer({ onHome, onSelecionarGenero, onIrParaDestaques, onPrivacidade, onTrocas, onFaq, nichos }) {
+function Footer({ onHome, onSelecionarGenero, onIrParaDestaques, onPrivacidade, onTrocas, onFaq, nichos, mundo = 'mundos' }) {
   const generos = nichos?.length ? nichos : generosPadrao
+  // Cada mundo tem a sua coluna Categorias: /Locus/leitura usa os gêneros
+  // de leitura, /Locus/natal usa os de Natal (data/generosNatal.js) e o
+  // escuro fica com os nichos padrão.
+  const categorias =
+    mundo === 'leitura' ? generosLeitura : mundo === 'natal' ? generosNatal : generos
 
   return (
     <footer
@@ -27,7 +34,7 @@ function Footer({ onHome, onSelecionarGenero, onIrParaDestaques, onPrivacidade, 
         </div>
 
         <FooterColunas
-          generos={generos}
+          generos={categorias}
           onSelecionarGenero={onSelecionarGenero}
           onIrParaDestaques={onIrParaDestaques}
           onPrivacidade={onPrivacidade}
